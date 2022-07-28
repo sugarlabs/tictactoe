@@ -1,6 +1,6 @@
 import pygame as pg
 from math import sqrt
-from constants import *
+import g
 
 
 class Animate:
@@ -11,7 +11,7 @@ class Animate:
     def EASE_IO_QUART(x):
         return 8 * pow(x, 4) if x < 0.5 else 1 - pow(-2 * x + 2, 4) / 2
 
-    def __init__(self, main, dur=500, color=WHITE, fn=EASE_OUT_QUART):
+    def __init__(self, main, dur=500, color=g.WHITE, fn=EASE_OUT_QUART):
         self.main = main
         self.color = color
         self.function = fn
@@ -33,7 +33,7 @@ class Animate:
         # self.length = self.p.magnitude()
         return self
 
-    def circle(self, center=[WIDTH / 2, HEIGHT / 2], radius=38, width=8):
+    def circle(self, center, radius=38, width=8):
         self.type = "circle"
         self.finished = False
         self.width = width
@@ -45,16 +45,14 @@ class Animate:
         )
         return self
 
-    def cross(self, center=[WIDTH / 2, HEIGHT / 2], length=40, width=10):
+    def cross(self, center, length=40, width=10):
         self.type = "cross"
-        # fmt: off
         points = [
             pg.Vector2(-length, 0), pg.Vector2(length, 0),
             pg.Vector2(0, length), pg.Vector2(0, -length)
         ]
-        # fmt: on
-        for point in points:
-            point.update(point.rotate(45) + pg.Vector2(center))
+        for i in range(len(points)):
+            points[i] = points[i].rotate(45) + pg.Vector2(center)
 
         self.sub_animations = [
             Animate(self.main, self.dur + i * 150, self.color, self.function).line(
@@ -111,8 +109,8 @@ class Animate:
         # Draw stuff
         if self.type == "line":
             pg.draw.line(
-                self.main.win, self.color, self.p1, self.p + self.p1, self.width
+                g.WIN, self.color, self.p1, self.p + self.p1, self.width
             )
         elif self.type == "circle":
-            pg.draw.circle(self.main.win, self.color, self.center, self.radius)
-            pg.draw.circle(self.main.win, BLACK, self.center, self.r)
+            pg.draw.circle(g.WIN, self.color, (int(self.center.x), int(self.center.y)), int(self.radius))
+            pg.draw.circle(g.WIN, g.BLACK, (int(self.center.x), int(self.center.y)), int(self.r))

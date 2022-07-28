@@ -1,6 +1,5 @@
-from asyncio import constants
 import pygame as pg
-from constants import *
+import g
 from frame import Frame
 import sys
 
@@ -32,31 +31,30 @@ class Main:
                 pg.display.set_mode(event.size, pg.RESIZABLE)
                 break
             if event.type == pg.MOUSEBUTTONUP:
-                if self.canvas is None:
-                    self.canvas.grab_focus()
+                # if self.canvas is None:
+                #     self.canvas.grab_focus()
                 self.frame.detect_click(pg.mouse.get_pos())
 
     def draw(self):
-        WIN.fill(BLACK)
+        g.WIN.fill(g.BLACK)
         self.frame.draw()
         pg.display.update()
 
     def reset(self):
-        self.frame = Frame(self)
+        self.frame = Frame(self, (g.WIDTH/2, g.HEIGHT/2))
 
     # The main loop
     def run(self):
-        init()
-        self.frame = Frame(self)
+        g.init()
+        self.frame = Frame(self, (g.WIDTH/2, g.HEIGHT/2))
         self.clock = pg.time.Clock()
         while self.running:
             self.check_events()
-            print(WIN)
             # if self.win is None:
             #     self.win = pg.display.get_surface()
             # else:
-            #     self.draw()
-            self.clock.tick(FPS)
+            self.draw()
+            self.clock.tick(g.FPS)
         pg.display.quit()
         pg.quit()
         sys.exit(0)
@@ -65,4 +63,5 @@ class Main:
 # Test if the script is directly ran
 if __name__ == "__main__":
     main = Main()
+    pg.display.set_mode((1024, 768))
     main.run()

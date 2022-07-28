@@ -1,10 +1,10 @@
 import pygame as pg
-from constants import *
 from anim import Animate
+import g
 
 
 class Frame:
-    def __init__(self, main, center=(WIDTH / 2, HEIGHT / 2), gap=110):
+    def __init__(self, main, center, gap=110):
         self.main = main
         self.length = 3 * gap
         self.gap = gap
@@ -46,11 +46,11 @@ class Frame:
     # Convert given list cartesian coordinates to pygame coordinates
     @staticmethod
     def cartesian_to_standard(coord):
-        return (coord[0] + WIDTH / 2, -coord[1] + HEIGHT / 2)
+        return (coord[0] + g.WIDTH / 2, -coord[1] + g.HEIGHT / 2)
 
     @staticmethod
     def standard_to_cartesian(coord):
-        return (coord[0] - WIDTH / 2, -coord[1] + HEIGHT / 2)
+        return (coord[0] - g.WIDTH / 2, -coord[1] + g.HEIGHT / 2)
 
     def detect_click(self, pos):
         for rect in self.rects:
@@ -143,9 +143,9 @@ class OX:
         self.remove_time = None
 
         if _type == 1:
-            self.animation = Animate(main, color=ORANGE).cross(center)
+            self.animation = Animate(main, color=g.ORANGE).cross(center)
         elif _type == -1:
-            self.animation = Animate(main, color=RED).circle(center)
+            self.animation = Animate(main, color=g.RED).circle(center)
 
     def draw(self):
         if self.blink:

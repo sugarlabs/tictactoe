@@ -41,7 +41,7 @@ import sugargame.canvas
 import main
 
 
-class TestActivity(Activity):
+class TicTacToe(Activity):
     def __init__(self, handle):
         Activity.__init__(self, handle)
 
