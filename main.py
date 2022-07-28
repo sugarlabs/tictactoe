@@ -3,7 +3,8 @@ import g
 from frame import Frame
 import sys
 import gi
-gi.require_version('Gtk', '3.0')
+
+gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 
@@ -42,7 +43,7 @@ class Main:
         pg.display.update()
 
     def reset(self):
-        self.frame = Frame(self, (g.WIDTH/2, g.HEIGHT/2))
+        self.frame = Frame(self, (g.WIDTH / 2, g.HEIGHT / 2))
 
     # The main loop
     def run(self):
@@ -54,7 +55,7 @@ class Main:
         if self.canvas is not None:
             self.canvas.grab_focus()
 
-        self.frame = Frame(self, (g.WIDTH/2, g.HEIGHT/2))
+        self.frame = Frame(self, (g.WIDTH / 2, g.HEIGHT / 2))
         self.clock = pg.time.Clock()
         while self.running:
             if self.journal:

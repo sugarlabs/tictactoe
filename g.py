@@ -7,6 +7,7 @@ BLACK = pg.Color("#101010")
 ORANGE = pg.Color("#FF6600")
 RED = pg.Color("#FF1F00")
 
+
 def init():
     global WIN, WIDTH, HEIGHT
     WIN = pg.display.get_surface()

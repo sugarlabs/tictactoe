@@ -29,7 +29,7 @@ class Animate:
         self.p1 = pg.Vector2(p1)
         self.p2 = pg.Vector2(p2)
         self.p = self.p2 - self.p1
-        self.length = sqrt(self.p.x**2 + self.p.y**2)
+        self.length = sqrt(self.p.x ** 2 + self.p.y ** 2)
         # self.length = self.p.magnitude()
         return self
 
@@ -48,8 +48,10 @@ class Animate:
     def cross(self, center, length=40, width=10):
         self.type = "cross"
         points = [
-            pg.Vector2(-length, 0), pg.Vector2(length, 0),
-            pg.Vector2(0, length), pg.Vector2(0, -length)
+            pg.Vector2(-length, 0),
+            pg.Vector2(length, 0),
+            pg.Vector2(0, length),
+            pg.Vector2(0, -length),
         ]
         for i in range(len(points)):
             points[i] = points[i].rotate(45) + pg.Vector2(center)
@@ -108,9 +110,14 @@ class Animate:
 
         # Draw stuff
         if self.type == "line":
-            pg.draw.line(
-                g.WIN, self.color, self.p1, self.p + self.p1, self.width
-            )
+            pg.draw.line(g.WIN, self.color, self.p1, self.p + self.p1, self.width)
         elif self.type == "circle":
-            pg.draw.circle(g.WIN, self.color, (int(self.center.x), int(self.center.y)), int(self.radius))
-            pg.draw.circle(g.WIN, g.BLACK, (int(self.center.x), int(self.center.y)), int(self.r))
+            pg.draw.circle(
+                g.WIN,
+                self.color,
+                (int(self.center.x), int(self.center.y)),
+                int(self.radius),
+            )
+            pg.draw.circle(
+                g.WIN, g.BLACK, (int(self.center.x), int(self.center.y)), int(self.r)
+            )
