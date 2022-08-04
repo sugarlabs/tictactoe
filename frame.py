@@ -107,6 +107,10 @@ class Frame:
                     self.moves[i][j].blink = True
                     self.moves[i][j].blink_start = pg.time.get_ticks()
                     i, j = prev
+                if sum == 3:
+                    self.main.score[0] += 1
+                else:
+                    self.main.score[1] += 1
                 reset()
 
         # fmt: off

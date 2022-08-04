@@ -68,8 +68,9 @@ class Animate:
             pg.Vector2(0, length),
             pg.Vector2(0, -length),
         ]
-        for i in range(len(points)):
-            points[i] = points[i].rotate(45) + pg.Vector2(center)
+        for i in range(2):
+            points[i] = points[i].rotate(40) + pg.Vector2(center)
+            points[i + 2] = points[i + 2].rotate(50) + pg.Vector2(center)
 
         self.sub_animations = [
             Animate(self.main, self.dur + i * 150, self.color, self.function).line(

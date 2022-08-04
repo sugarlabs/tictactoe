@@ -15,6 +15,7 @@
 
 
 import pygame as pg
+from anim import Animate
 import g
 from frame import Frame
 import sys
@@ -27,10 +28,21 @@ from gi.repository import Gtk
 # The main controller
 class Main:
     def __init__(self, journal=True):
+        g.init()
         self.journal = journal
         self.running = True
         self.canvas = None
         self.heading = pg.font.Font(None, 96).render("Tic - Tac - Toe", True, g.WHITE)
+        self.font = pg.font.Font(None, 72)
+        self.cross_ui = Animate(self, color=g.ORANGE).cross(
+            ((g.WIDTH - g.FRAME_GAP * 3) / 4, g.HEIGHT / 2 - g.FRAME_GAP / 4), 43, 11
+        )
+        self.circle_ui = Animate(self, color=g.RED).circle(
+            (g.WIDTH - (g.WIDTH - g.FRAME_GAP * 3) / 4, g.HEIGHT / 2 - g.FRAME_GAP / 4),
+            40,
+            8,
+        )
+        self.score = [0, 0]
 
     def set_canvas(self, canvas):
         self.canvas = canvas
@@ -64,6 +76,24 @@ class Main:
             ),
         )
         self.frame.draw()
+        self.cross_ui.update()
+        self.circle_ui.update()
+        scorex = self.font.render(str(self.score[0]), True, g.WHITE)
+        scoreo = self.font.render(str(self.score[1]), True, g.WHITE)
+        g.WIN.blit(
+            scorex,
+            (
+                (g.WIDTH - g.FRAME_GAP * 3 - 2 * scorex.get_width()) / 4,
+                (g.HEIGHT / 2 + g.FRAME_GAP / 4),
+            ),
+        )
+        g.WIN.blit(
+            scoreo,
+            (
+                g.WIDTH - (g.WIDTH - g.FRAME_GAP * 3 + 2 * scorex.get_width()) / 4,
+                (g.HEIGHT / 2 + g.FRAME_GAP / 4),
+            ),
+        )
         pg.display.update()
 
     def reset(self):
@@ -75,7 +105,6 @@ class Main:
             if event.type == pg.VIDEORESIZE:
                 pg.display.set_mode(event.size, pg.RESIZABLE)
                 break
-        g.init()
         if self.canvas is not None:
             self.canvas.grab_focus()
 
