@@ -20,7 +20,7 @@ import g
 
 
 class Frame:
-    def __init__(self, main, center, gap=110):
+    def __init__(self, main, center, gap=g.FRAME_GAP):
         self.main = main
         self.length = 3 * gap
         self.gap = gap

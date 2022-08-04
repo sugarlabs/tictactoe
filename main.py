@@ -30,6 +30,7 @@ class Main:
         self.journal = journal
         self.running = True
         self.canvas = None
+        self.heading = pg.font.Font(None, 96).render("Tic - Tac - Toe", True, g.WHITE)
 
     def set_canvas(self, canvas):
         self.canvas = canvas
@@ -55,6 +56,13 @@ class Main:
 
     def draw(self):
         g.WIN.fill(g.BLACK)
+        g.WIN.blit(
+            self.heading,
+            (
+                (g.WIDTH - self.heading.get_width()) // 2,
+                (g.HEIGHT * 0.5 - g.FRAME_GAP * 1.5 - self.heading.get_height()) // 2,
+            ),
+        )
         self.frame.draw()
         pg.display.update()
 
@@ -89,6 +97,7 @@ class Main:
 
 # Test if the script is directly ran
 if __name__ == "__main__":
-    main = Main(journal=False)
+    pg.init()
     pg.display.set_mode((1024, 768))
+    main = Main(journal=False)
     main.run()

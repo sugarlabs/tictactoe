@@ -38,7 +38,7 @@ class Animate:
         self.type = None
         self.sub_animations = None
 
-    def line(self, p1, p2, width=8):
+    def line(self, p1, p2, width=g.LINE_WIDTH):
         self.type = "line"
         self.finished = False
         self.width = width
@@ -46,10 +46,9 @@ class Animate:
         self.p2 = pg.Vector2(p2)
         self.p = self.p2 - self.p1
         self.length = sqrt(self.p.x ** 2 + self.p.y ** 2)
-        # self.length = self.p.magnitude()
         return self
 
-    def circle(self, center, radius=38, width=8):
+    def circle(self, center, radius=g.CIRCLE_RADIUS, width=g.CIRCLE_WIDTH):
         self.type = "circle"
         self.finished = False
         self.width = width
@@ -61,7 +60,7 @@ class Animate:
         )
         return self
 
-    def cross(self, center, length=40, width=10):
+    def cross(self, center, length=g.CROSS_LENGTH, width=g.CROSS_WIDTH):
         self.type = "cross"
         points = [
             pg.Vector2(-length, 0),
