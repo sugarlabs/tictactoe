@@ -28,27 +28,9 @@ from gi.repository import Gtk
 # The main controller
 class Main:
     def __init__(self, journal=True):
-        g.init()
         self.journal = journal
         self.running = True
         self.canvas = None
-        self.heading = pg.font.Font(None, 96).render("Tic - Tac - Toe", True, g.WHITE)
-        self.reset_text = pg.font.Font(None, 56).render("Reset", True, g.WHITE)
-        self.reset_rect = pg.Rect(
-            g.WIDTH / 2 - self.reset_text.get_width() / 2 - 30,
-            g.HEIGHT - self.reset_text.get_height() - 60,
-            self.reset_text.get_width() + 60,
-            self.reset_text.get_height() + 30,
-        )
-        self.font = pg.font.Font(None, 72)
-        self.cross_ui = Animate(self, color=g.ORANGE).cross(
-            ((g.WIDTH - g.FRAME_GAP * 3) / 4, g.HEIGHT / 2 - g.FRAME_GAP / 4), 43, 11
-        )
-        self.circle_ui = Animate(self, color=g.RED).circle(
-            (g.WIDTH - (g.WIDTH - g.FRAME_GAP * 3) / 4, g.HEIGHT / 2 - g.FRAME_GAP / 4),
-            40,
-            8,
-        )
         self.score = [0, 0]
 
     def set_canvas(self, canvas):
@@ -123,6 +105,26 @@ class Main:
             if event.type == pg.VIDEORESIZE:
                 pg.display.set_mode(event.size, pg.RESIZABLE)
                 break
+        g.init()
+        pg.font.init()
+        self.heading = pg.font.Font(None, 96).render("Tic - Tac - Toe", True, g.WHITE)
+        self.reset_text = pg.font.Font(None, 56).render("Reset", True, g.WHITE)
+        self.reset_rect = pg.Rect(
+            g.WIDTH / 2 - self.reset_text.get_width() / 2 - 30,
+            g.HEIGHT - self.reset_text.get_height() - 60,
+            self.reset_text.get_width() + 60,
+            self.reset_text.get_height() + 30,
+        )
+        self.font = pg.font.Font(None, 72)
+        self.cross_ui = Animate(self, color=g.ORANGE).cross(
+            ((g.WIDTH - g.FRAME_GAP * 3) / 4, g.HEIGHT / 2 - g.FRAME_GAP / 4), 43, 11
+        )
+        self.circle_ui = Animate(self, color=g.RED).circle(
+            (g.WIDTH - (g.WIDTH - g.FRAME_GAP * 3) / 4, g.HEIGHT / 2 - g.FRAME_GAP / 4),
+            40,
+            8,
+        )
+
         if self.canvas is not None:
             self.canvas.grab_focus()
 
