@@ -83,16 +83,19 @@ class Frame:
                 self.check_win(index)
                 break
 
-    def check_win(self, index):
-        def reset():
-            for m in self.moves:
-                for n in m:
-                    if n is not None:
-                        n.wait_and_remove = True
+    def reset(self, wait=True):
+        for m in self.moves:
+            for n in m:
+                if n is not None:
+                    n.wait_and_remove = True
+                    if wait:
                         n.remove_time = (
                             2 * n.blink_count * n.blink_dur + pg.time.get_ticks()
                         )
+                    else:
+                        n.remove_time = 0
 
+    def check_win(self, index):
         def check(sum, i, j):
             if abs(sum) == 3:
                 self.rects = []
@@ -111,7 +114,7 @@ class Frame:
                     self.main.score[0] += 1
                 else:
                     self.main.score[1] += 1
-                reset()
+                self.reset()
 
         # fmt: off
         _sum = self.board[index[0]][0] + self.board[index[0]][1] + self.board[index[0]][2]
@@ -128,7 +131,7 @@ class Frame:
             if 0 not in i:
                 tie += 1
         if tie == 3:
-            reset()
+            self.reset()
 
     def setup_remove(self, dur=500, animate=False):
         if not self.remove:

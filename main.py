@@ -33,6 +33,13 @@ class Main:
         self.running = True
         self.canvas = None
         self.heading = pg.font.Font(None, 96).render("Tic - Tac - Toe", True, g.WHITE)
+        self.reset_text = pg.font.Font(None, 56).render("Reset", True, g.WHITE)
+        self.reset_rect = pg.Rect(
+            g.WIDTH / 2 - self.reset_text.get_width() / 2 - 30,
+            g.HEIGHT - self.reset_text.get_height() - 60,
+            self.reset_text.get_width() + 60,
+            self.reset_text.get_height() + 30,
+        )
         self.font = pg.font.Font(None, 72)
         self.cross_ui = Animate(self, color=g.ORANGE).cross(
             ((g.WIDTH - g.FRAME_GAP * 3) / 4, g.HEIGHT / 2 - g.FRAME_GAP / 4), 43, 11
@@ -65,6 +72,9 @@ class Main:
                 if self.canvas is not None:
                     self.canvas.grab_focus()
                 self.frame.detect_click(pg.mouse.get_pos())
+                if self.reset_rect.collidepoint(pg.mouse.get_pos()):
+                    self.frame.reset(False)
+                    self.score = [0, 0]
 
     def draw(self):
         g.WIN.fill(g.BLACK)
@@ -92,6 +102,14 @@ class Main:
             (
                 g.WIDTH - (g.WIDTH - g.FRAME_GAP * 3 + 2 * scorex.get_width()) / 4,
                 (g.HEIGHT / 2 + g.FRAME_GAP / 4),
+            ),
+        )
+        pg.draw.rect(g.WIN, g.GREY, self.reset_rect, border_radius=40)
+        g.WIN.blit(
+            self.reset_text,
+            (
+                g.WIDTH / 2 - self.reset_text.get_width() / 2,
+                g.HEIGHT - self.reset_text.get_height() - 45,
             ),
         )
         pg.display.update()
