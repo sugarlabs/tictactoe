@@ -34,6 +34,7 @@ from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
+from sugar3.activity.widgets import DescriptionItem
 
 
 import sugargame.canvas
@@ -69,6 +70,11 @@ class TicTacToe(Activity):
         activity_button = ActivityToolbarButton(self)
         toolbar_box.toolbar.insert(activity_button, -1)
         activity_button.show()
+
+        self.metadata["description"] = "Each player takes it in turn to place their X or O into one of the empty squares in the grid by clicking on it. To win the game get three of your symbols in a line horizontally, vertically or diagonally."
+        description_item = DescriptionItem(self)
+        toolbar_box.toolbar.insert(description_item, -1)
+        description_item.show()
 
         separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
