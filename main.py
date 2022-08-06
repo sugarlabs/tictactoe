@@ -86,12 +86,24 @@ class Main:
                 (g.HEIGHT / 2 + g.FRAME_GAP / 4),
             ),
         )
-        pg.draw.rect(g.WIN, g.GREY, self.reset_rect, border_radius=40)
+        pg.draw.rect(g.WIN, g.GREY, self.reset_rect)
+        pg.draw.circle(
+            g.WIN,
+            g.GREY,
+            (int(self.reset_rect.x), int(self.reset_rect.centery)),
+            self.reset_rect.height // 2,
+        )
+        pg.draw.circle(
+            g.WIN,
+            g.GREY,
+            (int(self.reset_rect.right), int(self.reset_rect.centery)),
+            self.reset_rect.height // 2,
+        )
         g.WIN.blit(
             self.reset_text,
             (
                 g.WIDTH / 2 - self.reset_text.get_width() / 2,
-                g.HEIGHT - self.reset_text.get_height() - 45,
+                g.HEIGHT - self.reset_text.get_height() - 70,
             ),
         )
         pg.display.update()
@@ -110,10 +122,10 @@ class Main:
         self.heading = pg.font.Font(None, 96).render("Tic - Tac - Toe", True, g.WHITE)
         self.reset_text = pg.font.Font(None, 56).render("Reset", True, g.WHITE)
         self.reset_rect = pg.Rect(
-            g.WIDTH / 2 - self.reset_text.get_width() / 2 - 30,
-            g.HEIGHT - self.reset_text.get_height() - 60,
-            self.reset_text.get_width() + 60,
-            self.reset_text.get_height() + 30,
+            g.WIDTH / 2 - self.reset_text.get_width() / 2,
+            g.HEIGHT - self.reset_text.get_height() - 80,
+            self.reset_text.get_width(),
+            self.reset_text.get_height() + 20,
         )
         self.font = pg.font.Font(None, 72)
         self.cross_ui = Animate(self, color=g.ORANGE).cross(
