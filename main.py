@@ -196,8 +196,6 @@ class Main:
         pg.font.init()
         self.heading = pg.font.Font(None, 96).render(
             "Tic - Tac - Toe", True, g.WHITE)
-        self.turn_text = pg.font.Font(None, 64).render(
-            ["O Turn", "", "X Turn"][self.frame.turn+1], True, g.WHITE)
         self.reset_text = pg.font.Font(None, 56).render("Reset", True, g.WHITE)
         self.question_text = pg.font.Font(None, 72).render("?", True, g.WHITE)
         self.close_text = pg.font.Font(None, 64).render("X", True, g.WHITE)
@@ -242,6 +240,8 @@ class Main:
             self.canvas.grab_focus()
 
         self.frame = Frame(self, (g.WIDTH / 2, g.HEIGHT / 2))
+        self.turn_text = pg.font.Font(None, 64).render(
+            ["O Turn", "", "X Turn"][self.frame.turn+1], True, g.WHITE)
         self.clock = pg.time.Clock()
         while self.running:
             if self.journal:
