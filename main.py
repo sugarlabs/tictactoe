@@ -61,8 +61,6 @@ class Main:
                     self.score = [0, 0]
                 if self.help_pos.collidepoint(pg.mouse.get_pos()):
                     self.show_help = not self.show_help
-        self.turn_text = pg.font.Font(None, 64).render(
-            ["O Turn", "", "X Turn"][self.frame.turn+1], True, g.WHITE)
 
     def draw_help(self):
         pg.draw.circle(
@@ -198,7 +196,8 @@ class Main:
         pg.font.init()
         self.heading = pg.font.Font(None, 96).render(
             "Tic - Tac - Toe", True, g.WHITE)
-        self.turn_text = pg.font.Font(None, 64).render("X Turn", True, g.WHITE)
+        self.turn_text = pg.font.Font(None, 64).render(
+            ["O Turn", "", "X Turn"][self.frame.turn+1], True, g.WHITE)
         self.reset_text = pg.font.Font(None, 56).render("Reset", True, g.WHITE)
         self.question_text = pg.font.Font(None, 72).render("?", True, g.WHITE)
         self.close_text = pg.font.Font(None, 64).render("X", True, g.WHITE)
