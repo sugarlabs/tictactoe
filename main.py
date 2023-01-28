@@ -240,8 +240,8 @@ class Main:
             self.canvas.grab_focus()
 
         self.frame = Frame(self, (g.WIDTH / 2, g.HEIGHT / 2))
-        self.turn_text = pg.font.Font(None, 64).render(
-            ["O Turn", "", "X Turn"][self.frame.turn+1], True, g.WHITE)
+        # self.turn_text = pg.font.Font(None, 64).render(
+        #     ["O Turn", "", "X Turn"][self.frame.turn+1], True, g.WHITE)
         self.clock = pg.time.Clock()
         while self.running:
             if self.journal:
@@ -250,6 +250,8 @@ class Main:
                     Gtk.main_iteration()
 
             self.check_events()
+            self.turn_text = pg.font.Font(None, 64).render(
+            ["O Turn", "", "X Turn"][self.frame.turn+1], True, g.WHITE)
             self.draw()
             self.clock.tick(g.FPS)
         pg.display.quit()
