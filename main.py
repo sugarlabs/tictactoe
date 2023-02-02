@@ -128,6 +128,13 @@ class Main:
                 (g.HEIGHT * 0.5 - g.FRAME_GAP * 1.5 - self.heading.get_height()) // 2,
             ),
         )
+        g.WIN.blit(
+            self.turn_text,
+            (
+                (g.WIDTH - g.FRAME_GAP * 3 - 2 * self.turn_text.get_width()) / 4,
+                (g.HEIGHT * 0.5 - g.FRAME_GAP * 1.5 - self.turn_text.get_height()) // 2,
+            ),
+        )
         self.frame.draw()
         self.cross_ui.update()
         self.circle_ui.update()
@@ -232,6 +239,8 @@ class Main:
                     Gtk.main_iteration()
 
             self.check_events()
+            self.turn_text = pg.font.Font(None, 64).render(
+            ["O Turn", "", "X Turn"][self.frame.turn+1], True, g.WHITE)
             self.draw()
             self.clock.tick(g.FPS)
         pg.display.quit()
