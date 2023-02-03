@@ -55,7 +55,8 @@ class Main:
             if event.type == pg.MOUSEBUTTONUP:
                 if self.canvas is not None:
                     self.canvas.grab_focus()
-                self.frame.detect_click(pg.mouse.get_pos())
+                if self.frame.detect_click(pg.mouse.get_pos()):
+                    self.set_turn()
                 if self.reset_rect.collidepoint(pg.mouse.get_pos()):
                     self.frame.reset(False)
                     self.score = [0, 0]
@@ -180,6 +181,9 @@ class Main:
     def reset(self):
         self.frame = Frame(self, (g.WIDTH / 2, g.HEIGHT / 2))
 
+    def set_turn(self):
+        self.turn_text = pg.font.Font(None, 64).render(
+        ["O Turn", "", "X Turn"][self.frame.turn + 1], True, g.WHITE)
     # The main loop
     def run(self):
         for event in pg.event.get():
@@ -231,6 +235,7 @@ class Main:
             self.canvas.grab_focus()
 
         self.frame = Frame(self, (g.WIDTH / 2, g.HEIGHT / 2))
+        self.set_turn()
         self.clock = pg.time.Clock()
         while self.running:
             if self.journal:
@@ -239,8 +244,6 @@ class Main:
                     Gtk.main_iteration()
 
             self.check_events()
-            self.turn_text = pg.font.Font(None, 64).render(
-            ["O Turn", "", "X Turn"][self.frame.turn+1], True, g.WHITE)
             self.draw()
             self.clock.tick(g.FPS)
         pg.display.quit()

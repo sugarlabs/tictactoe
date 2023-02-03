@@ -81,7 +81,8 @@ class Frame:
                 self.turn *= -1
                 # Check if win
                 self.check_win(index)
-                break
+                return True
+        return False
 
     def reset(self, wait=True):
         for m in self.moves:
