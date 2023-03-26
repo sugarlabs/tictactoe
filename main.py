@@ -45,6 +45,9 @@ class Main:
     def read_file(self, file_path):
         pass
 
+    def quit(self):
+        self.running = False
+
     def check_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:

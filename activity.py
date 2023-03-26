@@ -34,7 +34,6 @@ from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
-from sugar3.activity.widgets import DescriptionItem
 
 
 import sugargame.canvas
@@ -87,3 +86,6 @@ class TicTacToe(Activity):
 
     def write_file(self, file_path):
         self.game.write_file(file_path)
+
+    def close(self):
+        self.game.quit()
