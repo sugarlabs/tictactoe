@@ -35,6 +35,7 @@ from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import DescriptionItem
+from sugar3.activity.widgets import HelpButton
 
 
 import sugargame.canvas
@@ -70,6 +71,17 @@ class TicTacToe(Activity):
         activity_button = ActivityToolbarButton(self)
         toolbar_box.toolbar.insert(activity_button, -1)
         activity_button.show()
+
+        separator = Gtk.SeparatorToolItem()
+        separator.props.draw = False
+        separator.set_expand(True)
+        toolbar_box.toolbar.insert(separator, -1)
+        separator.show()
+
+        help_button = HelpButton(self)
+        help_button.set_content(_("HELP CONTENT HERE!"))  # Can be anything to show HELP content
+        toolbar_box.toolbar.insert(help_button, -1)
+        help_button.show()
 
         separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
