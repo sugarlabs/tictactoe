@@ -74,7 +74,7 @@ class Frame:
                 # Spawn O or X
                 # Update the board
                 center = self.standard_to_cartesian(rect.center)
-                index = (1 - int(center[1] / self.gap), int(center[0] / self.gap) + 1)
+                index = (1 - round(center[1] / self.gap), round(center[0] / self.gap) + 1)
                 self.board[index[0]][index[1]] = self.turn
                 self.moves[index[0]][index[1]] = OX(self.main, self.turn, rect.center)
                 self.rects.remove(rect)
