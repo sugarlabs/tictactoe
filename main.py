@@ -56,6 +56,10 @@ class Main:
                 pg.display.set_mode(event.size, pg.RESIZABLE)
                 break
             if event.type == pg.MOUSEBUTTONUP:
+                if self.help_pos.collidepoint(pg.mouse.get_pos()):
+                    self.show_help = not self.show_help
+                if self.show_help == True: 
+                    break
                 if self.canvas is not None:
                     self.canvas.grab_focus()
                 if self.frame.detect_click(pg.mouse.get_pos()):
@@ -63,8 +67,6 @@ class Main:
                 if self.reset_rect.collidepoint(pg.mouse.get_pos()):
                     self.frame.reset(False)
                     self.score = [0, 0]
-                if self.help_pos.collidepoint(pg.mouse.get_pos()):
-                    self.show_help = not self.show_help
 
     def draw_help(self):
         pg.draw.circle(
