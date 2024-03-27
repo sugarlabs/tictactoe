@@ -183,6 +183,7 @@ class Main:
 
     def reset(self):
         self.frame = Frame(self, (g.WIDTH / 2, g.HEIGHT / 2))
+        self.set_turn()
 
     def set_turn(self):
         self.turn_text = pg.font.Font(None, 64).render(
@@ -237,8 +238,7 @@ class Main:
         if self.canvas is not None:
             self.canvas.grab_focus()
 
-        self.frame = Frame(self, (g.WIDTH / 2, g.HEIGHT / 2))
-        self.set_turn()
+        self.reset()
         self.clock = pg.time.Clock()
         while self.running:
             if self.journal:
