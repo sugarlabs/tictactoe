@@ -21,8 +21,11 @@ import g
 
 class Animate:
 
-    LINEAR = lambda x: x
-    EASE_OUT_QUART = lambda x: 1 - pow(1 - x, 4)
+    def LINEAR(x):
+        return x
+
+    def EASE_OUT_QUART(x):
+        return 1 - pow(1 - x, 4)
 
     def EASE_IO_QUART(x):
         return 8 * pow(x, 4) if x < 0.5 else 1 - pow(-2 * x + 2, 4) / 2
@@ -73,9 +76,12 @@ class Animate:
             points[i + 2] = points[i + 2].rotate(50) + pg.Vector2(center)
 
         self.sub_animations = [
-            Animate(self.main, self.dur + i * 150, self.color, self.function).line(
-                points[i], points[i + 1], width
-            )
+            Animate(
+                self.main,
+                self.dur + i * 150,
+                self.color,
+                self.function
+            ).line(points[i], points[i + 1], width)
             for i in range(0, len(points), 2)
         ]
         return self
@@ -109,7 +115,9 @@ class Animate:
                     fraction = 1 - fraction
 
                 if self.type == "line":
-                    self.p.scale_to_length(self.length * self.function(fraction))
+                    self.p.scale_to_length(
+                        self.length * self.function(fraction)
+                    )
                 elif self.type == "circle":
                     self.r = self.radius - self.width * self.function(fraction)
             else:
@@ -126,7 +134,11 @@ class Animate:
 
         # Draw stuff
         if self.type == "line":
-            pg.draw.line(g.WIN, self.color, self.p1, self.p + self.p1, self.width)
+            pg.draw.line(g.WIN,
+                         self.color,
+                         self.p1,
+                         self.p + self.p1,
+                         self.width)
         elif self.type == "circle":
             pg.draw.circle(
                 g.WIN,
@@ -135,5 +147,8 @@ class Animate:
                 int(self.radius),
             )
             pg.draw.circle(
-                g.WIN, g.BLACK, (int(self.center.x), int(self.center.y)), int(self.r)
+                g.WIN,
+                g.BLACK,
+                (int(self.center.x), int(self.center.y)),
+                int(self.r)
             )

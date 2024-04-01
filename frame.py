@@ -29,10 +29,14 @@ class Frame:
         self.center = center
         # fmt: off
         self.points = [
-            [self.gap/2, self.length/2], [self.gap/2, -self.length/2],
-            [-self.gap/2, -self.length/2], [-self.gap/2, self.length/2],
-            [-self.length/2, self.gap/2], [self.length/2, self.gap/2],
-            [self.length/2, -self.gap/2], [-self.length/2, -self.gap/2],
+            [self.gap / 2, self.length / 2],
+            [self.gap / 2, -self.length / 2],
+            [-self.gap / 2, -self.length / 2],
+            [-self.gap / 2, self.length / 2],
+            [-self.length / 2, self.gap / 2],
+            [self.length / 2, self.gap / 2],
+            [self.length / 2, -self.gap / 2],
+            [-self.length / 2, -self.gap / 2],
         ]
         for point in self.points:
             point[0] += self.center[0]
@@ -40,7 +44,9 @@ class Frame:
         # fmt: on
         self.rects = []
         self.board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-        self.moves = [[None, None, None], [None, None, None], [None, None, None]]
+        self.moves = [[None, None, None],
+                      [None, None, None],
+                      [None, None, None]]
 
         for i in range(3):
             for j in range(3):
@@ -55,7 +61,8 @@ class Frame:
                 )
 
         self.animations = [
-            Animate(main, 700 + i * 100).line(self.points[i], self.points[i + 1])
+            Animate(main, 700 + i * 100).line(self.points[i],
+                                              self.points[i + 1])
             for i in range(0, len(self.points), 2)
         ]
 
@@ -74,9 +81,12 @@ class Frame:
                 # Spawn O or X
                 # Update the board
                 center = self.standard_to_cartesian(rect.center)
-                index = (1 - round(center[1] / self.gap), round(center[0] / self.gap) + 1)
+                index = (1 - round(center[1] / self.gap),
+                         round(center[0] / self.gap) + 1)
                 self.board[index[0]][index[1]] = self.turn
-                self.moves[index[0]][index[1]] = OX(self.main, self.turn, rect.center)
+                self.moves[index[0]][index[1]] = OX(self.main,
+                                                    self.turn,
+                                                    rect.center)
                 self.rects.remove(rect)
                 self.turn *= -1
                 # Check if win
@@ -90,8 +100,9 @@ class Frame:
                 if n is not None:
                     n.wait_and_remove = True
                     if wait:
+                        ticks = pg.time.get_ticks()
                         n.remove_time = (
-                            2 * n.blink_count * n.blink_dur + pg.time.get_ticks()
+                            2 * n.blink_count * n.blink_dur + ticks
                         )
                     else:
                         n.remove_time = 0
@@ -118,9 +129,11 @@ class Frame:
                 self.reset()
 
         # fmt: off
-        _sum = self.board[index[0]][0] + self.board[index[0]][1] + self.board[index[0]][2]
+        i0 = index[0]
+        i1 = index[1]
+        _sum = self.board[i0][0] + self.board[i0][1] + self.board[i0][2]
         check(_sum, index[0], None)
-        _sum = self.board[0][index[1]] + self.board[1][index[1]] + self.board[2][index[1]]
+        _sum = self.board[0][i1] + self.board[1][i1] + self.board[2][i1]
         check(_sum, None, index[1])
         _sum = self.board[0][0] + self.board[1][1] + self.board[2][2]
         check(_sum, None, None)
